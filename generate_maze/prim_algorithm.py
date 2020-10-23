@@ -71,7 +71,8 @@ class PrimAlgorithm:
                     
                     
 if __name__ == "__main__":
-    a = PrimAlgorithm([20, 20], [0, 0])
+    size = [41, 41]
+    a = PrimAlgorithm(size, [0, 0])
     map_maze = a.prim()
     
     file = open('maze.csv', 'w', newline='')
