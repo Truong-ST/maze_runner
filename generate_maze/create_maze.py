@@ -3,18 +3,19 @@ from prim_algorithm import PrimAlgorithm
 import numpy as np
 import time
 import csv
+import ast
 
-w = 1000
-h = 1000
+
+w = 820
+h = 820
+block = 20
+margin = 20
 
 tk = Tk()
 tk.title('maze')
 canvas = Canvas(tk, width=w, height=h)
 tk.resizable(0, 0)
 canvas.pack()
-
-block = 20
-margin = 20
 
 
 def draw_map(size):
@@ -24,8 +25,8 @@ def draw_map(size):
                 canvas.create_rectangle(col * block +margin, row * block +margin, col * block +margin+block,
                                     row * block +margin+block, fill='black')                
                  
-            canvas.create_rectangle(col * block +margin+int(block/2), row * block +margin+int(block/2), col * block +margin+2+int(block/2),
-                                    row * block +margin+2+int(block/2), fill='black')
+            canvas.create_rectangle(col * block +margin+int(block/2), row * block +margin+int(block/2), col * block +margin+1+int(block/2),
+                                    row * block +margin+1+int(block/2), fill='black')
             
             
 def create_point(position, size, color):
@@ -48,10 +49,17 @@ def scale_coordinate(list_coordinate, ratio, bias):
     return scaled_list
 
 
-size = [41, 41]
-a = PrimAlgorithm(size, [0, 0])
-map_maze = a.prim()
-
+# size = [37, 37]
+# a = PrimAlgorithm(size, [0, 0])
+# map_maze = a.prim()
+size = [37, 37]
+map_maze = []
+file = open('maze.csv', 'r')
+reader = csv.reader(file)
+for row in reader:
+    tmp = list(map(int, row))
+    map_maze.append(tmp)
+    # map_maze.append(list(ast.literal_eval(row)))
 
 # ------------------- Draw -------------------------
 

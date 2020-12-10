@@ -1,7 +1,9 @@
+import numpy as np
 import random
 import ast
 
+a = np.array([3,4])
+print(np.linalg.norm(a))
 
-a = ['1', '2', '5']
-l = int(ast.literal_eval(a))
-print(l)
+s = "3,5,6,7,4,3"
+print(s.split(','))

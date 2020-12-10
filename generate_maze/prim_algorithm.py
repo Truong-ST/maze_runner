@@ -71,7 +71,7 @@ class PrimAlgorithm:
                     
                     
 if __name__ == "__main__":
-    size = [41, 41]
+    size = [37, 37]
     a = PrimAlgorithm(size, [0, 0])
     map_maze = a.prim()
     
