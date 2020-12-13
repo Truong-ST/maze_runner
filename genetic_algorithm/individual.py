@@ -5,23 +5,26 @@ import math
 class Individual:
     def __init__(self, start):
         self.fitness = 0
-        self.gene_length = 200
-        self.gene_phi = []
+        self.theta = 0
+        self.phi = math.pi / 3
+        self.gene_length = 450
+        self.gene_phi = [np.random.uniform(0, math.pi * 2)]
         self.gene_time = []
         self.initialize_individual()
         self.start = start
         self.position = self.start.astype(float)
+        self.pi2 = math.pi * 2
         
        
     def initialize_individual(self):
-        pi2 = math.pi * 2
-        for i in range(self.gene_length):
-            self.gene_phi.append(np.random.uniform(0, pi2))
+        for i in range(self.gene_length-1):
+            self.gene_phi.append(np.random.uniform(-self.phi, self.phi))
             self.gene_time.append(np.random.randint(2, 5))
             
             
-    def move(self, phi, v, t):
-        x, y = t*v * math.cos(phi), t*v * math.sin(phi)
+    def move(self, theta, v, t):
+        self.theta += theta
+        x, y = t*v * math.cos(self.theta), t*v * math.sin(self.theta)
         self.position += np.array([x, y])
         # return self.position
         return np.array([x, y])

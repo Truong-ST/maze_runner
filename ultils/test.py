@@ -1,24 +1,29 @@
 import numpy as np
-import time 
-from numba import vectorize, cuda, jit
-
-# @vectorize(['float32(float32, float32)'], target = 'gpu')
-# def add(a, b):
-#     return a + b
-
-
-# def main():
-#     n = 32000000
-#     a = np.ones(n, dtype=np.float32)
-#     b = np.ones(n, dtype=np.float32)
+# Python program to
+# demonstrate implementation of
+# queue using queue module
+ 
+class I:
+    def __init__(self):
+        self.fitness = np.random.randint(0,100);
     
-#     start = time.time()
-#     c = add(a, b)
-#     vector_add_time = time.time() - start
-#     print('c[:5] = ', str(c[:5]))
-#     print('c[-5:] = ', str(c[-5:]))
-#     print(vector_add_time)
+class P:
+    def __init__(self):
+        self.pops = []
+        self.i()
     
-# if __name__ == '__main__':
-#     main()
-    
+    def i(self):
+        for i in range(5):
+            self.pops.append(I())
+            
+print("--------")      
+p = P()
+for i in p.pops:
+    print(i)
+    print(i.fitness)
+p.pops.sort(key=lambda x: x.fitness)
+print("--------")
+for i in p.pops:
+    print(i)
+    print(i.fitness)
+
