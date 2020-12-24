@@ -75,7 +75,7 @@ if __name__ == "__main__":
     a = PrimAlgorithm(size, [0, 0])
     map_maze = a.prim()
     
-    file = open('maze.csv', 'w', newline='')
+    file = open('map_maze.csv', 'w', newline='')
     writer = csv.writer(file)
     writer.writerows(list(map_maze))
     file.close()

@@ -14,6 +14,7 @@ class Main:
         self.amount = amount
         self.pops = Popuation(start, amount)
         self.pops.initialize_population()
+        self.gene_length = self.pops.individuals[0].gene_length
         self.fittest = 0
         self.generation = 0
         self.survival = amount // 3
@@ -28,7 +29,7 @@ class Main:
         # renew
         for indi in self.pops.individuals:
             indi.position = self.start.astype(float)
-            indi.phi = 0
+            indi.theta = 0
             
         self.fittest = self.pops.individuals[0].fitness
         
@@ -36,7 +37,7 @@ class Main:
     def crossover(self, ratio):
         # crossover_point = np.random.randint(50, 100)
         crossover_point = ratio % self.amount
-        new = 20
+        new = self.amount // 10
         
         son = individual.Individual(self.start)
         son.gene_phi = self.pops.individuals[0].gene_phi.copy()[:crossover_point] + self.pops.individuals[1].gene_phi.copy()[crossover_point:]
@@ -56,18 +57,38 @@ class Main:
             
             self.pops.individuals.append(offspring)
             
-        for i in range(new):
-            self.pops.individuals.append(individual.Individual(self.start))
-
-    def mutation(self, ratio):
-        number_genes = 50
         
-        for i in range(ratio):
-            index = np.random.randint(5, self.amount)
+    def mutation(self, ratio, over):
+        number_genes = self.gene_length // np.random.randint(8, 16)
+        rang = self.amount - self.amount // 10
+        max_specific = self.gene_length -30
+        
+        for i in range(ratio-3):
+            index = np.random.randint(3, rang)
             indi = self.pops.individuals[index]
             
             for j in range(number_genes):
-                indi.gene_phi[np.random.randint(0, 100)] -= 0
+                pos = np.random.randint(25, self.gene_length)
+                indi.gene_phi[pos] = -indi.gene_phi[pos]
+                
+        for i in range(3):
+            index = np.random.randint(3, 25)
+            indi = self.pops.individuals[index]
+            for i in range(3):
+                if over < max_specific:
+                    pos = np.random.randint(over-8, over + 15)
+                else:
+                    pos = np.random.randint(over-8, self.gene_length)
+                indi.gene_phi[pos] = -indi.gene_phi[pos] 
+        
+        self.pops.individuals[5].gene_phi[over-8] -= 0
+        self.pops.individuals[5].gene_phi[over-4] -= 0
+                
+                
+    def add_new(self):
+        new = self.amount // 10
+        for i in range(new):
+            self.pops.individuals.append(individual.Individual(self.start))
                 
 
     def relate_offspring(self):

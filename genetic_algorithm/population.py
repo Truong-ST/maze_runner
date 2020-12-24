@@ -11,6 +11,7 @@ class Popuation:
     def initialize_population(self):
         for i in range(self.amount):
             self.individuals.append(Individual(self.start))
+        print('generate')
     
     
     def calculate_fitness(self, goal):
